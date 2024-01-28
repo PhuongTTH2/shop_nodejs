@@ -1,0 +1,12 @@
+
+
+POST http://localhost:3055/v1/api/shop/signup
+Content-Type: application/json
+# x-api-key: aaa
+x-api-key : 211aa478f04c26edc702791223840505ae80a138aeefa4c2c24800228efb2950d5d3689d68162eee589e962e9e833cad4634610e98b61ef86053b48a11a2e7b3
+
+{
+    "name":"Shop Phuong",
+    "email": "tthpspkt5@gmail.com",
+    "password":"abc123"
+}
