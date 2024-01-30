@@ -28,7 +28,7 @@ const apiKey = async (req, res, next) => {
 };
 
 const permisstion = (permission) => {
-
+  // createDummKey()
   return (req, res, next) => {
     if (!req.objKey.permissions) {
       return res.status(403).json({
