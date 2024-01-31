@@ -59,5 +59,6 @@ class LOGIN extends SuccessResponse {
 module.exports = {
   OK,
   CREATED,
-  LOGIN
+  LOGIN,
+  SuccessResponse
 };

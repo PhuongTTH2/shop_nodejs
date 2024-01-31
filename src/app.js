@@ -45,7 +45,7 @@ app.use((req, res, next) => {
 
 
 app.use((error, req, res, next) => {
-    console.log('asdasdsa',error.status, error)
+    console.log('app.useapp.useapp.use',error.status, error)
     const statusCode = error.status || 500
     return res.status(statusCode).json({
         status:'error',

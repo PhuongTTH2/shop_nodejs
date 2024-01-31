@@ -42,8 +42,19 @@ class AuthFailureError extends ErrorResponse {
     super(message, statusCode);
   }
 }
+
+class NotFoundError extends ErrorResponse {
+  constructor(
+    // cần viết thêm config
+    message = ReasonStatusCode.UNAUTHORIZED,
+    statusCode = StatusCode.UNAUTHORIZED
+  ) {
+    super(message, statusCode);
+  }
+}
 module.exports = {
   ConflictRequestError,
   BadRequestError,
-  AuthFailureError
+  AuthFailureError,
+  NotFoundError
 };

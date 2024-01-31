@@ -22,6 +22,11 @@ const RoleShop = {
   ADMIN: "xxx3",
 };
 class AccessService {
+
+
+  static logout = async (keyStore) =>{
+    return await KeyTokenService.removeKeyById(keyStore._id)
+  }
   /**
    * - check email
    * - match password
@@ -30,6 +35,7 @@ class AccessService {
    * - get data return login
    *
    */
+  
   static login = async ({ email, password, refreshToken = null }) => {
     const foundShop = await findByEmail({ email });
     if (!foundShop) throw new BadRequestError("Shop not registerd");
