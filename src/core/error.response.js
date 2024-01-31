@@ -52,9 +52,20 @@ class NotFoundError extends ErrorResponse {
     super(message, statusCode);
   }
 }
+
+class ForbiddenError extends ErrorResponse {
+  constructor(
+    // cần viết thêm config
+    message = ReasonStatusCode.UNAUTHORIZED,
+    statusCode = StatusCode.UNAUTHORIZED
+  ) {
+    super(message, statusCode);
+  }
+}
 module.exports = {
   ConflictRequestError,
   BadRequestError,
   AuthFailureError,
-  NotFoundError
+  NotFoundError,
+  ForbiddenError
 };
