@@ -1,0 +1,22 @@
+
+
+POST http://localhost:3055/v1/api/product
+Content-Type: application/json
+x-api-key : 74d0204e809b6bad1d7be91e3aafac01a79a99f5660267a1df50ab935913ee3b6606c810341c003f99c4aa51ed585e7df65f95be2570f01d31f9d4ce4c32685c
+x-client-id : 65b8ecf9dd4607118e148c1c
+authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NWI4ZWNmOWRkNDYwNzExOGUxNDhjMWMiLCJlbWFpbCI6InR0aHBzcGt0QGdtYWlsLmNvbSIsImlhdCI6MTcwNjc5OTI3NiwiZXhwIjoxNzA2OTcyMDc2fQ.TK2WEKCgys9QdLY3B-7gYzboQnA7kCwtBPwgftsfkXY
+
+{
+    "product_name": "New Jeans",
+    "product_thumb":"product_thumb",
+    "product_description":"Test",
+    "product_price":50,
+    "product_quantity":5,
+    "product_type":"Clothing",
+    "product_shop":"65b8ecf9dd4607118e148c1c",
+    "product_attributes":{
+        "brand":"Test",
+        "size":"L",
+        "meterial":"Denim2"
+    }
+}

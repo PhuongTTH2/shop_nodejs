@@ -41,34 +41,73 @@ class AccessService {
       throw new ForbiddenError("Something wrong");
     }
 
-    const holderToken = await KeyTokenService.findByRefreshToken(refreshToken)
+    const holderToken = await KeyTokenService.findByRefreshToken(refreshToken);
 
-    if(!holderToken) new AuthFailureError("Shop not registeted");
+    if (!holderToken) new AuthFailureError("Shop not registeted");
 
     const { userId, email } = await verifyJWT(
       refreshToken,
       holderToken.privateKey
     );
-    console.log('2',{ userId, email });
-    const foundShop = await findByEmail(email)
+    console.log("2", { userId, email });
+    const foundShop = await findByEmail(email);
 
-    if(!foundShop) new AuthFailureError("Shop not registeted 2");
+    if (!foundShop) new AuthFailureError("Shop not registeted 2");
 
-    const tokens = await createTokenPair({userId, email}, holderToken.publicKey , holderToken.privateKey)
+    const tokens = await createTokenPair(
+      { userId, email },
+      holderToken.publicKey,
+      holderToken.privateKey
+    );
 
     await holderToken.updateOne({
-      $set:{
-        refreshToken: tokens.refreshToken
+      $set: {
+        refreshToken: tokens.refreshToken,
       },
-      $addToSet:{
-        refreshTokensUsed: refreshToken
-      }
-    })
+      $addToSet: {
+        refreshTokensUsed: refreshToken,
+      },
+    });
 
     return {
-      user: {userId, email},
-      tokens
+      user: { userId, email },
+      tokens,
+    };
+  };
+
+  static handleRefreshTokenV2 = async ({ refreshToken, user, keyStore }) => {
+    const { userId, email } = user;
+
+    if (keyStore.refreshTokensUsed.includes(refreshToken)) {
+      await KeyTokenService.deleteKeyById(userId);
+
+      throw new ForbiddenError("Something wrong");
     }
+
+    if (keyStore.refreshToken !== refreshToken)
+      throw new AuthFailureError("Shop not registeted");
+
+    const foundShop = await findByEmail(email);
+    if (foundShop) throw new AuthFailureError("Shop not registeted");
+    const tokens = await createTokenPair(
+      { userId, email },
+      keyStore.publicKey,
+      keyStore.privateKey
+    );
+
+    await keyStore.updateOne({
+      $set: {
+        refreshToken: tokens.refreshToken,
+      },
+      $addToSet: {
+        refreshTokensUsed: refreshToken,
+      },
+    });
+
+    return {
+      user,
+      tokens,
+    };
   };
 
   static logout = async (keyStore) => {
